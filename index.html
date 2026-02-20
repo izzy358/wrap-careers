@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WrapCareers — The Job Board for Wrap, Tint, PPF & Coating Pros</title>
+  <meta name="description" content="The first job board built for vinyl wrap, window tint, PPF, ceramic coating, and detailing professionals. Find your next gig or hire skilled installers.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="WrapCareers — Jobs for Wrap, Tint, PPF & Coating Pros">
+  <meta property="og:description" content="The first job board built specifically for automotive finishing trades. Find skilled installers or land your next gig.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.png">
+  
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+  
+  <style>
+    :root {
+      --primary: #FF6B2C;
+      --primary-dark: #E55A1B;
+      --dark: #1A1A2E;
+      --dark-light: #16213E;
+      --text: #E8E8E8;
+      --text-muted: #A0A0B0;
+      --accent: #00D4AA;
+      --bg: #0F0F1A;
+      --card: #1A1A2E;
+      --border: #2A2A3E;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--text); }
+
+    .nav-cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--primary-dark); }
+
+    /* HERO */
+    .hero {
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 107, 44, 0.15);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 107, 44, 0.3);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--primary), #FF9A5C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* EMAIL FORM */
+    .email-form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 500px;
+      margin: 0 auto 1rem;
+    }
+
+    .email-form input {
+      flex: 1;
+      padding: 0.9rem 1.2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-form input:focus {
+      border-color: var(--primary);
+    }
+
+    .email-form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .email-form button {
+      padding: 0.9rem 1.8rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .email-form button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 1rem;
+      background: rgba(0, 212, 170, 0.1);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      border-radius: 8px;
+      color: var(--accent);
+      font-weight: 600;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ROLE TOGGLE */
+    .role-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .role-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .role-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* PROBLEM */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    /* PAIN CARDS */
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pain-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .pain-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .pain-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pain-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--primary);
+    }
+
+    .feature-card .icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 107, 44, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* QUOTE */
+    .quote-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      margin: 3rem auto;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .quote-section blockquote {
+      font-size: 1.2rem;
+      font-style: italic;
+      margin-bottom: 1rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .quote-section cite {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(255, 107, 44, 0.05) 50%, var(--bg) 100%);
+    }
+
+    .cta-section h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .email-form { flex-direction: column; }
+      .email-form button { width: 100%; }
+      .stats { gap: 1.5rem; }
+      .stat-number { font-size: 1.5rem; }
+      .section { padding: 3rem 1.5rem; }
+      .quote-section { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Wrap<span>Careers</span></a>
+    <a href="#signup" class="nav-cta">Get Early Access</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="signup">
+    <div class="badge">🚀 Launching March 2026</div>
+    <h1>The Job Board Built for <span class="highlight">Wrap, Tint, PPF & Coating</span> Pros</h1>
+    <p>Stop scrolling Indeed. The first job board made specifically for automotive finishing trades — where skilled installers meet shops that need them.</p>
+
+    <div class="role-toggle">
+      <button class="role-btn active" onclick="setRole('installer')">I'm an Installer</button>
+      <button class="role-btn" onclick="setRole('shop')">I'm a Shop Owner</button>
+    </div>
+
+    <form class="email-form" id="emailForm">
+      <input type="email" id="emailInput" placeholder="Enter your email" required>
+      <input type="hidden" id="roleInput" value="installer">
+      <button type="submit">Get Early Access</button>
+    </form>
+    <p class="form-note">Free forever for installers. No spam. Unsubscribe anytime.</p>
+    <div class="success-msg" id="successMsg">
+      ✅ You're on the list! We'll reach out before launch.
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">$14B+</div>
+      <div class="stat-label">U.S. aftermarket industry</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0</div>
+      <div class="stat-label">dedicated job boards</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">25K+</div>
+      <div class="stat-label">shops hiring installers</div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="section">
+    <h2 class="section-title">The Hiring Problem Nobody's Solving</h2>
+    <p class="section-subtitle">Shop owners can't find skilled installers. Installers can't find the right shops. Everyone's stuck on Indeed, Craigslist, and Instagram DMs.</p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="icon">😤</div>
+        <h3>For Shop Owners</h3>
+        <p>You post on Indeed and get 50 applicants who've never touched a roll of wrap film. Finding someone who can actually lay PPF on a Model Y? Nearly impossible.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">🔍</div>
+        <h3>For Installers</h3>
+        <p>Your skills are specialized but job sites lump you in with "auto body technician." No way to showcase your portfolio, certifications, or the quality of your work.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">📱</div>
+        <h3>For Everyone</h3>
+        <p>Right now, hiring happens through Instagram DMs, Facebook groups, and word of mouth. It works... until it doesn't. The industry deserves better.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="section">
+    <div class="quote-section">
+      <blockquote>"I recently opened up a wrap shop and have been constantly running job listings on Indeed and ZipRecruiter to find experienced wrappers but just can't find anyone."</blockquote>
+      <cite>— Shop owner on r/CarWraps</cite>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <h2 class="section-title">What We're Building</h2>
+    <p class="section-subtitle">A job board that actually understands our trades.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">🎨</div>
+        <h3>Portfolio Profiles</h3>
+        <p>Showcase your best work with before/after photos and video. Import from Instagram. Your portfolio IS your resume.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">✅</div>
+        <h3>Verified Skills</h3>
+        <p>XPEL certified? 3M trained? SunTek qualified? We verify it. Verified badges that actually mean something.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔎</div>
+        <h3>Trade-Specific Search</h3>
+        <p>Filter by skill (wrap, tint, PPF, ceramic, detailing), experience level, location, and certifications. No more generic results.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📱</div>
+        <h3>Mobile-First</h3>
+        <p>Built for how you actually work. Browse jobs, update your profile, and apply — all from your phone between installs.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">💰</div>
+        <h3>Free for Installers</h3>
+        <p>Create a profile, build your portfolio, apply to jobs — always free. We make money from shops, not from you.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🏪</div>
+        <h3>Shop Profiles</h3>
+        <p>Employers showcase their shop, team, and culture. Installers can see where they're applying — not just a faceless job post.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADES -->
+  <section class="section" style="text-align: center;">
+    <h2 class="section-title">Built for These Trades</h2>
+    <p class="section-subtitle">If you install it on a vehicle, this is your board.</p>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; max-width: 600px; margin: 0 auto;">
+      <span style="background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.95rem;">🎨 Vinyl Wrap</span>
+      <span style="background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.95rem;">🪟 Window Tint</span>
+      <span style="background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.95rem;">🛡️ PPF</span>
+      <span style="background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.95rem;">💎 Ceramic Coating</span>
+      <span style="background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.95rem;">✨ Auto Detailing</span>
+      <span style="background: var(--card); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.95rem;">🎨 Paint Correction</span>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="cta-section" id="signup-bottom">
+    <h2>Be First In Line</h2>
+    <p>We're launching in March 2026. Early signups get founding member status.</p>
+    <form class="email-form" id="emailForm2">
+      <input type="email" id="emailInput2" placeholder="Enter your email" required>
+      <button type="submit">Get Early Access</button>
+    </form>
+    <p class="form-note">Join the waitlist — launching soon.</p>
+    <div class="success-msg" id="successMsg2">
+      ✅ You're on the list! We'll reach out before launch.
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 WrapCareers. The job board for automotive finishing trades.</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="#" style="color: var(--text-muted); text-decoration: none;">Privacy</a> · 
+      <a href="#" style="color: var(--text-muted); text-decoration: none;">Terms</a> · 
+      <a href="mailto:hello@wrapcareers.com" style="color: var(--text-muted); text-decoration: none;">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    // Role toggle
+    function setRole(role) {
+      document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('roleInput').value = role;
+      
+      const noteEl = document.querySelector('.form-note');
+      if (role === 'shop') {
+        noteEl.textContent = 'First job post free for early adopters. No spam. Unsubscribe anytime.';
+      } else {
+        noteEl.textContent = 'Free forever for installers. No spam. Unsubscribe anytime.';
+      }
+    }
+
+    // Form handling — stores to localStorage for now.
+    // Replace with real backend (Supabase, Mailchimp, ConvertKit, etc.)
+    function handleSubmit(formId, successId, inputId) {
+      document.getElementById(formId).addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById(inputId).value;
+        const role = document.getElementById('roleInput')?.value || 'unknown';
+        
+        // Store locally (replace with API call)
+        const signups = JSON.parse(localStorage.getItem('wrapcareers_signups') || '[]');
+        signups.push({ email, role, timestamp: new Date().toISOString() });
+        localStorage.setItem('wrapcareers_signups', JSON.stringify(signups));
+        
+        // Show success
+        document.getElementById(formId).style.display = 'none';
+        document.getElementById(successId).style.display = 'block';
+        
+        // Optional: send to backend
+        // fetch('/api/signup', { method: 'POST', body: JSON.stringify({ email, role }) });
+        
+        console.log(`Signup: ${email} (${role})`);
+      });
+    }
+
+    handleSubmit('emailForm', 'successMsg', 'emailInput');
+    handleSubmit('emailForm2', 'successMsg2', 'emailInput2');
+  </script>
+
+</body>
+</html>

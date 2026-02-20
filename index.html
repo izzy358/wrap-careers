@@ -569,17 +569,18 @@
         const email = document.getElementById(inputId).value;
         const role = document.getElementById('roleInput')?.value || 'unknown';
         
-        // Store locally (replace with API call)
-        const signups = JSON.parse(localStorage.getItem('wrapcareers_signups') || '[]');
-        signups.push({ email, role, timestamp: new Date().toISOString() });
-        localStorage.setItem('wrapcareers_signups', JSON.stringify(signups));
-        
-        // Show success
-        document.getElementById(formId).style.display = 'none';
-        document.getElementById(successId).style.display = 'block';
-        
-        // Optional: send to backend
-        // fetch('/api/signup', { method: 'POST', body: JSON.stringify({ email, role }) });
+        // Send to Formspree
+        fetch('https://formspree.io/f/xgollyao', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, role })
+        }).then(() => {
+          document.getElementById(formId).style.display = 'none';
+          document.getElementById(successId).style.display = 'block';
+        }).catch(() => {
+          document.getElementById(formId).style.display = 'none';
+          document.getElementById(successId).style.display = 'block';
+        });
         
         console.log(`Signup: ${email} (${role})`);
       });

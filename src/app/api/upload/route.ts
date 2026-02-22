@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: NextRequest) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const formData = await request.formData();
   const file = formData.get('file') as File;
   const folder = formData.get('folder') as string || 'misc'; // e.g., 'company_logos', 'portfolio_images', 'resumes'

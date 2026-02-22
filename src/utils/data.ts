@@ -24,7 +24,7 @@ export async function getJobs({
   limit?: number;
   is_featured?: boolean;
 } = {}) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   let query = supabase
     .from('jobs')
@@ -94,7 +94,7 @@ export async function getInstallers({
   page?: number;
   limit?: number;
 } = {}) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   let query = supabase
     .from('installers')

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -126,7 +127,7 @@ export function ApplyForm({ jobSlug }: { jobSlug: string }) {
             {...register('applicant_name')}
             className="w-full p-3 rounded-lg bg-border border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
           />
-          {errors.applicant_name && <p className="text-error text-sm mt-1">{errors.applicant_name.message}</p>}
+          {errors.applicant_name && <p className="text-error text-sm mt-1">{errors.applicant_name.message as string}</p>}
         </div>
 
         <div>
@@ -137,7 +138,7 @@ export function ApplyForm({ jobSlug }: { jobSlug: string }) {
             {...register('applicant_email')}
             className="w-full p-3 rounded-lg bg-border border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
           />
-          {errors.applicant_email && <p className="text-error text-sm mt-1">{errors.applicant_email.message}</p>}
+          {errors.applicant_email && <p className="text-error text-sm mt-1">{errors.applicant_email.message as string}</p>}
         </div>
 
         <div>
@@ -148,7 +149,7 @@ export function ApplyForm({ jobSlug }: { jobSlug: string }) {
             {...register('phone')}
             className="w-full p-3 rounded-lg bg-border border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
           />
-          {errors.phone && <p className="text-error text-sm mt-1">{errors.phone.message}</p>}
+          {errors.phone && <p className="text-error text-sm mt-1">{errors.phone.message as string}</p>}
         </div>
 
         <div>
@@ -160,7 +161,7 @@ export function ApplyForm({ jobSlug }: { jobSlug: string }) {
             placeholder="Tell them why you're a great fit..."
             className="w-full p-3 rounded-lg bg-border border border-border text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
           ></textarea>
-          {errors.message && <p className="text-error text-sm mt-1">{errors.message.message}</p>}
+          {errors.message && <p className="text-error text-sm mt-1">{errors.message.message as string}</p>}
         </div>
 
         <div>
@@ -171,7 +172,7 @@ export function ApplyForm({ jobSlug }: { jobSlug: string }) {
             {...register('portfolio_link')}
             className="w-full p-3 rounded-lg bg-border border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
           />
-          {errors.portfolio_link && <p className="text-error text-sm mt-1">{errors.portfolio_link.message}</p>}
+          {errors.portfolio_link && <p className="text-error text-sm mt-1">{errors.portfolio_link.message as string}</p>}
         </div>
 
         <div>
@@ -184,7 +185,7 @@ export function ApplyForm({ jobSlug }: { jobSlug: string }) {
             onChange={handleFileChange}
             className="w-full text-text-primary file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-orange-700"
           />
-          {errors.resume && <p className="text-error text-sm mt-1">{errors.resume.message}</p>}
+          {errors.resume && <p className="text-error text-sm mt-1">{errors.resume.message as string}</p>}
         </div>
 
         <button

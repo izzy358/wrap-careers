@@ -2,9 +2,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
-export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
-  const supabase = createClient();
-  const { slug } = params;
+export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const supabase = await createClient();
+  const { slug } = await params;
 
   const { data, error } = await supabase
     .from('jobs')
@@ -23,9 +23,9 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
   return NextResponse.json({ job: data });
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { slug: string } }) {
-  const supabase = createClient();
-  const { slug } = params;
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const supabase = await createClient();
+  const { slug } = await params;
   const body = await request.json();
   const { manage_token, ...updates } = body; // Extract manage_token and other updates
 
@@ -52,9 +52,9 @@ export async function PUT(request: NextRequest, { params }: { params: { slug: st
   return NextResponse.json({ job: data });
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { slug: string } }) {
-  const supabase = createClient();
-  const { slug } = params;
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const supabase = await createClient();
+  const { slug } = await params;
   const searchParams = request.nextUrl.searchParams;
   const manage_token = searchParams.get('token'); // Get token from query params
 

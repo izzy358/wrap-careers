@@ -5,12 +5,12 @@ import { tradeColors } from '@/utils/constants';
 import { ApplyForm } from '@/components/ApplyForm';
 
 interface JobDetailPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: JobDetailPageProps) {
-  const supabase = createClient();
-  const { slug } = params;
+  const supabase = await createClient();
+  const { slug } = await params;
 
   const { data: job, error } = await supabase
     .from('jobs')
@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: JobDetailPageProps) {
 }
 
 export default async function JobDetailPage({ params }: JobDetailPageProps) {
-  const supabase = createClient();
-  const { slug } = params;
+  const supabase = await createClient();
+  const { slug } = await params;
 
   const { data: job, error } = await supabase
     .from('jobs')
@@ -81,7 +81,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
         {/* Breadcrumb */}
         <nav className="text-sm text-text-secondary mb-6">
           <Link href="/jobs" className="hover:underline">Jobs</Link> &gt; 
-          <Link href={`/jobs?trade=${job.trades[0]}`} className="hover:underline">{job.trades[0].replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</Link> &gt; 
+          <Link href={`/jobs?trade=${job.trades[0]}`} className="hover:underline">{job.trades[0].replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</Link> &gt; 
           <span className="text-primary">{job.location_city}, {job.location_state}</span>
         </nav>
 
@@ -91,7 +91,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
             <div className="flex flex-wrap gap-2 mb-4">
               {job.trades.map((trade: string) => (
                 <span key={trade} className={`text-sm font-medium px-3 py-1 rounded-full ${tradeColors[trade] || 'bg-gray-700 text-gray-300'}`}>
-                  {trade.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  {trade.replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
                 </span>
               ))}
             </div>
@@ -109,7 +109,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               </div>
               <div>
                 <p className="text-text-secondary">📋 Job Type</p>
-                <p className="text-lg font-semibold">{job.job_type.replace(/\b\w/g, l => l.toUpperCase())}</p>
+                <p className="text-lg font-semibold">{job.job_type.replace(/\b\w/g, (l: string) => l.toUpperCase())}</p>
               </div>
               <div>
                 <p className="text-text-secondary">📍 Location</p>
@@ -117,7 +117,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               </div>
               <div>
                 <p className="text-text-secondary">🏷️ Trades</p>
-                <p className="text-lg font-semibold">{job.trades.map((trade: string) => trade.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())).join(', ')}</p>
+                <p className="text-lg font-semibold">{job.trades.map((trade: string) => trade.replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())).join(', ')}</p>
               </div>
             </div>
 
@@ -182,3 +182,6 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
           </aside>
         </div>
       </main>
+    </div>
+  );
+}

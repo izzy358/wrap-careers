@@ -37,12 +37,12 @@ export function JobCard({ job }: JobCardProps) {
       <div className="flex flex-wrap gap-2 mb-4">
         {job.trades.map((trade: string) => (
           <span key={trade} className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${tradeColors[trade] || 'bg-gray-700 text-gray-300'}`}>
-            {trade.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            {trade.replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
           </span>
         ))}
       </div>
       <p className="text-lg font-semibold mb-1">${job.pay_min}-{job.pay_max}/{job.pay_type === 'hourly' ? 'hr' : 'yr'}</p>
-      <p className="text-text-muted text-sm">{job.job_type.replace(/\b\w/g, l => l.toUpperCase())} · {new Date(job.created_at).toLocaleDateString()}</p>
+      <p className="text-text-muted text-sm">{job.job_type.replace(/\b\w/g, (l: string) => l.toUpperCase())} · {new Date(job.created_at).toLocaleDateString()}</p>
     </div>
   );
 }
